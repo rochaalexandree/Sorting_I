@@ -1,5 +1,9 @@
+import java.util.Scanner;
+
 public class Ordenacao01{
 
+/** SelectionSort
+*/
     public static void selection(int[] vetor) {
         int menor;
         int indiceMenor;
@@ -27,6 +31,9 @@ public class Ordenacao01{
 
         System.out.println("Trocas "+cont+" Tempo:"+(tempoFinal - tempoInicial) / 1000d);
     }
+
+/** InsertionSort
+*/
 
     public static void insertionSort(int[] vetor){
         int cont = 0;
@@ -110,15 +117,128 @@ public class Ordenacao01{
 
         }
 
-    public static void main(String[] args){
+    /**QuickSort - Se assemelha com o pensamento do merge, mas usufrui da particição através de um pivô
+    */
+    private static void quickSort(int[] vetor, int inicio, int fim) {
+               for(int i = 0; i < vetor.length; i++)
+                    System.out.println(vetor[i]);
 
-        int v[] = {12, 2, 3, 52, 12, 43, 5, 13, 42, 10};
+               if (inicio < fim) {
+                      int posicaoPivo = separar(vetor, inicio, fim);
+                      quickSort(vetor, inicio, posicaoPivo - 1);
+                      quickSort(vetor, posicaoPivo + 1, fim);
+               }
+         }
 
-        selection(v);
-        System.out.println();
-        insertionSort(v);
-        System.out.println();
-        sort(v);//merge
-   }
+         private static int separar(int[] vetor, int inicio, int fim) {
+               int pivo = vetor[inicio];
+               int i = inicio + 1, f = fim;
+               while (i <= f) {
+                      if (vetor[i] <= pivo)
+                             i++;
+                      else if (pivo < vetor[f])
+                             f--;
+                      else {
+                             int troca = vetor[i];
+                             vetor[i] = vetor[f];
+                             vetor[f] = troca;
+                             i++;
+                             f--;
+                      }
+               }
+               vetor[inicio] = vetor[f];
+               vetor[f] = pivo;
+               return f;
+        }
+
+
+        /**
+            HeapSort
+        */
+
+        private static int[] a;
+        private static int n;
+        private static int left;
+        private static int right;
+        private static int largest;
+
+        public static void buildheap(int []a){
+        n=a.length-1;
+        for(int i=n/2;i>=0;i--){
+            maxheap(a,i);
+        }
+    }
+
+    public static void maxheap(int[] a, int i){
+        left=2*i;
+        right=2*i+1;
+        if(left <= n && a[left] > a[i]){
+            largest=left;
+        }
+        else{
+            largest=i;
+        }
+
+        if(right <= n && a[right] > a[largest]){
+            largest=right;
+        }
+        if(largest!=i){
+            exchange(i,largest);
+            maxheap(a, largest);
+        }
+    }
+
+    public static void exchange(int i, int j){
+        int t=a[i];
+        a[i]=a[j];
+        a[j]=t;
+        }
+
+    public static void sortHeap(int []a0){
+        a=a0;
+        buildheap(a);
+
+        for(int i=n;i>0;i--){
+            exchange(0, i);
+            n=n-1;
+            maxheap(a, 0);
+        }
+        for(int j = 0; j < a0.length; j++)
+            System.out.println(a0[j]);
+    }
+
+        public static void main(String[] args){
+
+            int v[] = {12, 2, 3, 52, 12, 43, 5, 13, 42, 10};
+
+            Scanner ler = new Scanner(System.in);
+            int n = ler.nextInt();
+
+            switch(n){
+                case 1:
+                        selection(v);
+                        System.out.println();
+                        break;
+                case 2:
+                        insertionSort(v);
+                        System.out.println();
+                        break;
+                case 3:
+                        sort(v);//merge
+                        System.out.println();
+                        break;
+                case 4:
+                        quickSort(v,0,v.length-1);
+                        System.out.println();
+                        break;
+                case 5:
+                        sortHeap(v);
+                        System.out.println();
+                        break;
+                default:
+                        System.out.println("Digito inválido");
+            }
+
+        }
 
 }
