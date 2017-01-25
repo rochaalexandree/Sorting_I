@@ -1,7 +1,7 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class Ordenacao01{
 
@@ -192,76 +192,60 @@ public class Ordenacao01{
     }
 
     public static void exchange(int i, int j){
-        int t=a[i];
-        a[i]=a[j];
-        a[j]=t;
+        int t = a[i];
+        a[i] = a[j];
+        a[j] = t;
         }
 
     public static void sortHeap(int []a0){
-        a=a0;
+        a = a0;
         buildheap(a);
 
-        for(int i=n;i>0;i--){
+        for(int i = n; i > 0; i--){
             exchange(0, i);
-            n=n-1;
+            n = n - 1;
             maxheap(a, 0);
         }
-        for(int j = 0; j < a0.length; j++)
-            System.out.println(a0[j]);
     }
 
-        public static void main(String[] args){
+        public static void main(String[] args) throws IOException{
 
-            //int v[] = {12, 2, 3, 52, 12, 43, 5, 13, 42, 10};
-            Scanner ler = new Scanner(System.in);
+            FileReader ler = new FileReader(new File(args[1]));
+            BufferedReader origem = new BufferedReader(ler);
 
-            System.out.printf("Informe o nome de arquivo texto:\n");
-            String nome = ler.nextLine();
-            int v[], k;
-            //Scanner a = new Scanner(System.in);
-            //int n = a.nextInt();
+            String linha = origem.readLine();
+            int x = Integer.parseInt(linha);
+            String k = args[0];
+            int v;
 
-            try {
-                FileReader arq = new FileReader(nome);
-                BufferedReader lerArq = new BufferedReader(arq);
-
-                String linha = lerArq.readLine(); // lê a primeira linha
-                System.out.println(linha);
-                int n = Integer.parseInt(linha);
-                v = new int[n];
-                // a variável "linha" recebe o valor "null" quando o processo
-                // de repetição atingir o final do arquivo texto
-                while (linha != null) {
-                    System.out.printf("%s\n", linha);
-                    String var = null;
-                    linha = lerArq.readLine(); // lê da segunda até a última linha
-                }
-
-                arq.close();
-            } catch (IOException e) {
-                    System.err.printf("Erro na abertura do arquivo: %s.\n",
-                    e.getMessage());
+            int vetor[] = new int[x]; //Vetor original
+            for(int i = 0; i < x; i++){
+                linha = origem.readLine();
+                v = Integer.parseInt(linha);
+                vetor[i] = v;
             }
 
+            int vetor[] = new int[x]; //Vetor Ordenado
+
             switch(k){
-                case 1:
-                        selection(v);
+                case "1":
+                        selection(vetor);
                         System.out.println();
                         break;
-                case 2:
-                        insertionSort(v);
+                case "2":
+                        insertionSort(vetor);
                         System.out.println();
                         break;
-                case 3:
-                        sort(v);//merge
+                case "3":
+                        sort(vetor);//merge
                         System.out.println();
                         break;
-                case 4:
-                        quickSort(v,0,v.length-1);
+                case "4":
+                        quickSort(vetor,0,vetor.length-1);
                         System.out.println();
                         break;
-                case 5:
-                        sortHeap(v);
+                case "5":
+                        sortHeap(vetor);
                         System.out.println();
                         break;
                 default:
