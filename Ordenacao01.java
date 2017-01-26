@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Ordenacao01{
 
@@ -29,10 +30,15 @@ public class Ordenacao01{
             // troca os valores menor e maior
             vetor[indiceMenor] = vetor[i];
             vetor[i] = menor;
+            cont++;
         }
         long tempoFinal = System.currentTimeMillis();
 
         System.out.println("Trocas "+cont+" Tempo:"+(tempoFinal - tempoInicial) / 1000d);
+
+        for(int i = 0; i < vetor.length; i++){
+            System.out.println(vetor[i]);
+        }
     }
 
 /** InsertionSort
@@ -58,6 +64,9 @@ public class Ordenacao01{
 
         System.out.println("Trocas "+cont+" Tempo:"+(tempoFinal - tempoInicial) / 1000d);
 
+        for(int i = 0; i < vetor.length; i++){
+            System.out.println(vetor[i]);
+        }
     }
 
     /** MergeSort - particiona o vetor ao meio
@@ -72,6 +81,10 @@ public class Ordenacao01{
                 number = values.length;
                 helper = new int[number];
                 mergesort(0, number - 1);
+
+                for(int i = 0; i < values.length; i++){
+                    System.out.println(values[i]);
+                }
         }
 
         private static void mergesort(int low, int high) {
@@ -131,6 +144,9 @@ public class Ordenacao01{
                       quickSort(vetor, inicio, posicaoPivo - 1);
                       quickSort(vetor, posicaoPivo + 1, fim);
                }
+               for(int i = 0; i < vetor.length; i++){
+                    System.out.println(vetor[i]);
+                }
          }
 
          private static int separar(int[] vetor, int inicio, int fim) {
@@ -206,47 +222,44 @@ public class Ordenacao01{
             n = n - 1;
             maxheap(a, 0);
         }
+
+        for(int i = 0; i < a0.length; i++){
+            System.out.println(a0[i]);
+        }
     }
 
-        public static void main(String[] args) throws IOException{
+        public static void main(String[] args){
 
-            FileReader ler = new FileReader(new File(args[1]));
-            BufferedReader origem = new BufferedReader(ler);
-
-            String linha = origem.readLine();
-            int x = Integer.parseInt(linha);
             String k = args[0];
-            int v;
+            Scanner scan = new Scanner(System.in);
 
-            int vetor[] = new int[x]; //Vetor original
-            for(int i = 0; i < x; i++){
-                linha = origem.readLine();
-                v = Integer.parseInt(linha);
-                vetor[i] = v;
+            String linha = scan.nextLine();
+
+            int n = Integer.parseInt(linha);
+            int x = 0;
+
+            int vetor[] = new int[n];
+            for(int i = 0; i < n; i++){
+                linha = scan.nextLine();
+                x = Integer.parseInt(linha);
+                vetor[i] = x;
             }
-
-            int vetor[] = new int[x]; //Vetor Ordenado
 
             switch(k){
                 case "1":
                         selection(vetor);
-                        System.out.println();
                         break;
                 case "2":
                         insertionSort(vetor);
-                        System.out.println();
                         break;
                 case "3":
                         sort(vetor);//merge
-                        System.out.println();
                         break;
                 case "4":
                         quickSort(vetor,0,vetor.length-1);
-                        System.out.println();
                         break;
                 case "5":
                         sortHeap(vetor);
-                        System.out.println();
                         break;
                 default:
                         System.out.println("Digito inválido");
