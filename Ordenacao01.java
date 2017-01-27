@@ -7,7 +7,6 @@ public class Ordenacao01{
     public static void selection(int[] vetor) {
         int menor;
         int indiceMenor;
-        int cont = 0;
 
         for (int i = 0; i < vetor.length - 1; i++) {
 
@@ -23,7 +22,6 @@ public class Ordenacao01{
 
             vetor[indiceMenor] = vetor[i];
             vetor[i] = menor;
-            cont++;
         }
 
         for(int i = 0; i < vetor.length; i++){
@@ -35,24 +33,17 @@ public class Ordenacao01{
 */
 
     public static void insertionSort(int[] vetor){
-        int cont = 0;
 
-        long tempoInicial = System.currentTimeMillis();
         for (int i = 1; i < vetor.length; i++){
 
             int key = vetor[i];
-            int j = i;
+            int j;
 
-            while ((j > 0) && (vetor[j-1] > key)){
-                vetor[j] = vetor[j-1];
-                j -= 1;
-                cont++;
+            for (j = i - 1; j >= 0 && key < vetor[j]; j--){
+                vetor[j + 1] = vetor[j];
             }
-            vetor[j] = key;
+            vetor[j + 1] = key;
         }
-        long tempoFinal = System.currentTimeMillis();
-
-        System.out.println("Trocas "+cont+" Tempo:"+(tempoFinal - tempoInicial) / 1000d);
 
         for(int i = 0; i < vetor.length; i++){
             System.out.println(vetor[i]);
