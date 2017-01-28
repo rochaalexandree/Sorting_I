@@ -159,51 +159,50 @@ public class Ordenacao01{
         private static int largest;
 
         public static void buildheap(int []vector){
-        n=vector.length-1;
-        for(int i=n/2;i>=0;i--){
-            maxheap(vector,i);
-        }
-    }
-
-    public static void maxheap(int[] vector, int i){
-        left=2*i;
-        right=2*i+1;
-        if(left <= n && vector[left] > vector[i]){
-            largest=left;
-        }
-        else{
-            largest=i;
+            n=vector.length-1;
+            for(int i=n/2;i>=0;i--){
+                maxheap(vector,i);
+            }
         }
 
-        if(right <= n && vector[right] > vector[largest]){
-            largest=right;
-        }
-        if(largest!=i){
-            exchange(i,largest);
-            maxheap(vector, largest);
-        }
-    }
+        public static void maxheap(int[] vector, int i){
+            left=2*i;
+            right=2*i+1;
+            if(left <= n && vector[left] > vector[i]){
+                largest=left;
+            } else{
+                largest=i;
+            }
 
-    public static void exchange(int i, int j){
-        int t = vector[i];
-        vector[i] = vector[j];
-        vector[j] = t;
-    }
-
-    public static void sortHeap(int []vetor){
-        vector = vetor;
-        buildheap(vector);
-
-        for(int i = n; i > 0; i--){
-            exchange(0, i);
-            n = n - 1;
-            maxheap(vector, 0);
+            if(right <= n && vector[right] > vector[largest]){
+                largest=right;
+            }
+            if(largest!=i){
+                exchange(i,largest);
+                maxheap(vector, largest);
+            }
         }
 
-        for(int i = 0; i < vetor.length; i++){
-            System.out.println(vetor[i]);
+        public static void exchange(int i, int j){
+            int t = vector[i];
+            vector[i] = vector[j];
+            vector[j] = t;
         }
-    }
+
+        public static void sortHeap(int []vetor){
+            vector = vetor;
+            buildheap(vector);
+
+            for(int i = n; i > 0; i--){
+                exchange(0, i);
+                n = n - 1;
+                maxheap(vector, 0);
+            }
+
+            for(int i = 0; i < vetor.length; i++){
+                System.out.println(vetor[i]);
+            }
+        }
 
         public static void main(String[] args){
 
