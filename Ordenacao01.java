@@ -108,43 +108,46 @@ public class Ordenacao01{
 
         }
 
-    /**QuickSort - Se assemelha com o pensamento do merge, mas usufrui da particição através de um pivô
-    */
-    private static void quickSort(int[] vetor, int inicio, int fim) {
+        /**QuickSort - Se assemelha com o pensamento do merge, mas usufrui da particição através de um pivô
+        */
+        public static int[] quickSort(int vetor[], int inicio, int fim){
 
-               if (inicio < fim) {
-                      int posicaoPivo = separar(vetor, inicio, fim);
-                      quickSort(vetor, inicio, posicaoPivo - 1);
-                      quickSort(vetor, posicaoPivo + 1, fim);
-               }
-
-               for(int i = 0; i < vetor.length; i++){
-                    System.out.println(vetor[i]);
-               }
-         }
-
-         private static int separar(int[] vetor, int inicio, int fim) {
-               int pivo = vetor[inicio];
-               int i = inicio + 1, f = fim;
-               while (i <= f) {
-                      if (vetor[i] <= pivo)
-                             i++;
-                      else if (pivo < vetor[f])
-                             f--;
-                      else {
-                             int troca = vetor[i];
-                             vetor[i] = vetor[f];
-                             vetor[f] = troca;
-                             i++;
-                             f--;
-                      }
-               }
-               vetor[inicio] = vetor[f];
-               vetor[f] = pivo;
-               return f;
+            if( inicio < fim){
+                int pivo = separa(vetor, inicio, fim);
+                quickSort(vetor, inicio, pivo - 1);
+                quickSort(vetor, pivo + 1, fim);
+            }
+            return vetor;
         }
 
+        public static int separa(int vetor[], int inicio, int fim){
+            int pivo = vetor[inicio];
+            int i = inicio;
+            int f = fim;
 
+            while(i < f){
+                while(vetor[i] <= pivo){
+                    i++;
+                    if(i == fim) break;
+                }
+                while( pivo < vetor[f]){
+                    f--;
+                    if(f == inicio) break;
+                }
+                if(i < f){
+                    swap(vetor, i, f);
+                }
+            }
+                vetor[inicio] = vetor[f];
+                vetor[f] = pivo;
+            return f;
+        }
+
+        public static void swap(int vetor[], int i, int f){
+            int aux = vetor[i];
+            vetor[i] = vetor[f];
+            vetor[f] = aux;
+        }
         /**
             HeapSort
         */
@@ -230,7 +233,9 @@ public class Ordenacao01{
                         sort(vetor);//merge
                         break;
                 case "4":
-                        quickSort(vetor,0,vetor.length-1);
+                        quickSort(vetor,0,vetor.length - 1);
+                        for(int i = 0; i < vetor.length; i++)
+                                System.out.println(vetor[i]);
                         break;
                 case "5":
                         sortHeap(vetor);
